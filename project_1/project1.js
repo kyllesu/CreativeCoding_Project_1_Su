@@ -8,8 +8,8 @@ function setup() {
   for (var i = 0; i < 350; i++) { //generates up to 350 raindrops 
     drops[i] = new Drop();
   }
-  person1 = new Person(0,windowHeight-200);
-  person2 = new Person(windowWidth,windowHeight-200);
+  person1 = new Person(0,height-200);
+  person2 = new Person(width,height-200);
 }
 
 function draw() {
@@ -56,11 +56,11 @@ class Drop {
     var grav = mouseX / 350;
     this.y = this.y + this.yspeed * grav;
   
-    if (this.y >= windowHeight - 100) {
+    if (this.y >= height - 100) {
       noFill();
       noStroke();
       fill(255, 150);
-      ellipse(this.x, windowHeight - random(5, 90), random(2, 5), random(1, 4));
+      ellipse(this.x, height - random(5, 90), random(2, 5), random(1, 4));
       this.x = random(0,width);
       this.y = random(-200, -100);
       this.yspeed = map(this.z, 0, 20, 4, 10);
