@@ -1,9 +1,10 @@
 let drops = []; //array to create multiple drops
 let person1; 
 let person2;
+let hasStopped = false;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1000, 1000);
   for (var i = 0; i < 350; i++) { //generates up to 350 raindrops 
     drops[i] = new Drop();
   }
@@ -16,15 +17,28 @@ function draw() {
   background(0,25);
   person1.move(1);
   person1.display();
+  person1.stop();
+
   person2.move(-1);
   person2.display();
+  person2.stop();
+  
   for (var i = 0; i < drops.length; i++) {
     drops[i].fall();
     drops[i].show();
   }
-
+  
+  heart();
 }
 
+function heart() { //create a heart at an instance
+  
+  if (hasStopped == true) {
+    noStroke();
+    fill(255);
+    ellipse(width/2,height/2,25,25); // this will be a larger heart that decreases in size and opacity 
+  }
+}
 
 class Drop {
   
@@ -71,12 +85,19 @@ class Person {
   
   move(direction) {
     
-    this.x = this.x + 1*direction;
+    this.x = this.x + 1*direction; //speed
     this.y = this.y ;
-    //making them stop and touch (DOES NOT WORK)
-    if (this.x == windowWidth/2 - 200 || windowWidth/2 +200) {
-      this.x = this.x
-    }  
+  }
+
+    stop() { //will stop the people
+    if (person1.x > width/2 - 30) {
+      person1.x = width/2 - 30
+      hasStopped = true; //check for stop
+    }
+  
+    if (person2.x < width/2 + 30) {
+      person2.x = width/2 + 30;
+    }
   }
   
   display() {
