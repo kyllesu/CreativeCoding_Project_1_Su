@@ -2,25 +2,32 @@ let drops = []; //array to create multiple drops
 let person1; 
 let person2;
 let hasStopped = false;
+let heartX, heartY;
 
 function setup() {
   createCanvas(1000, 1000);
   for (var i = 0; i < 350; i++) { //generates up to 350 raindrops 
     drops[i] = new Drop();
   }
-  person1 = new Person(0,height-200);
-  person2 = new Person(width,height-200);
+  person1 = new Person(0, height - 300);
+  person2 = new Person(width, height - 300);
 }
 
 function draw() {
   
   background(0,25);
+  person1.displayHead();
+  person1.displayBody();
+  person1.displayFrontLeg(1);
+  person1.displayBackLeg(1);
   person1.move(1);
-  person1.display();
   person1.stop();
 
+  person2.displayHead();
+  person2.displayBody();
+  person2.displayFrontLeg(-1);
+  person2.displayBackLeg(-1);
   person2.move(-1);
-  person2.display();
   person2.stop();
   
   for (var i = 0; i < drops.length; i++) {
@@ -32,11 +39,19 @@ function draw() {
 }
 
 function heart() { //create a heart at an instance
-  
+
   if (hasStopped == true) {
+    heartX = 100;
+    heartX += 0.3;
+    heartY += 0.3;
+    heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 110;
+    fill(255, 0, 0);
     noStroke();
-    fill(255);
-    ellipse(width/2,height/2,25,25); // this will be a larger heart that decreases in size and opacity 
+    translate(width / 2, height / 2 - heartY + 50);
+    rotate(PI / 4.0);
+    square(0, 0, heartY);
+    circle(heartY / 2, 0, heartY);
+    circle(0, heartY / 2, heartY);
   }
 }
 
@@ -81,33 +96,62 @@ class Person {
   constructor(x,y) {
     this.x = x;
     this.y = y;
+    this.state = 1;
   }
   
   move(direction) {
     
     this.x = this.x + 1*direction; //speed
     this.y = this.y ;
+    this.state = (this.state + 1) % 3; // transition between both states to create walking animation
   }
 
-    stop() { //will stop the people
-    if (person1.x > width/2 - 30) {
-      person1.x = width/2 - 30
+  stop() { //will stop the people
+    if (person1.x > width / 2 - 40) {
+      person1.x = width / 2 - 40
       hasStopped = true; //check for stop
+      this.state = 2; // stop person at standing still
     }
-  
-    if (person2.x < width/2 + 30) {
-      person2.x = width/2 + 30;
-    }
-  }
-  
-  display() {
-    stroke(255);
-    strokeWeight(3);
-    noFill();
-    ellipse(this.x, this.y, 50, 50);
-    line(this.x,this.y + 25, this.x, this.y + 75);
-  }
-}
 
+    if (person2.x < width / 2 + 40) {
+      person2.x = width / 2 + 40;
+      this.state = 2
+    }
+  }
+  
+  displayHead() {
+    fill(255);
+    noStroke();
+    ellipseMode(CENTER);
+    ellipse(this.x, this.y - 35, 75, 75); // head
+  }
+
+  displayBody() {
+    fill(255);
+    stroke(255);
+    strokeWeight(5);
+    line(this.x, this.y + 5, this.x, this.y + 130 ); // body
+  }
+  
+  displayFrontLeg(facing) {
+    if (this.state == 1) {
+      line(this.x, this.y + 130, this.x + 30*facing, this.y + 170); // forward thigh
+      line(this.x + 30*facing, this.y + 170, this.x + 10*facing, this.y + 240); // forward shin
+    } else if (this.state == 2) {
+      line(this.x, this.y + 130, this.x + 10*facing, this.y + 170); //transition
+      line(this.x + 10*facing, this.y + 170, this.x, this.y + 240);
+    }
+  }
+
+  displayBackLeg(facing) {
+    if (this.state == 1) {
+      line(this.x, this.y + 130, this.x - 30*facing, this.y + 240); // back leg
+    } else if (this.state == 2) {
+      line(this.x, this.y + 130, this.x, this.y + 240); //transition
+    }
+    
+  }
+
+}
 //i made a change
 
