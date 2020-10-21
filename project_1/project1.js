@@ -84,7 +84,7 @@ function heart() { //create a heart at an instance
 function theMoon() {
   
   for (var moonlight = gradient; moonlight > 0; moonlight = moonlight - 1) {
-    var moonlightSize = map(moonlight, gradient, 0, width/ 3.2, 100); //size of moonlight
+    var moonlightSize = map(moonlight, gradient, 0, 450, 100); //size of moonlight
     noStroke();
     fill(lerpColor(color(0,25), color(0, 125, 255), 1 - moonlight / gradient)); //black to blue inwards moonlight gradient
     ellipse(140, 140, moonlightSize, moonlightSize); //position of moonlight
