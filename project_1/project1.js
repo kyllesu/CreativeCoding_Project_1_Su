@@ -65,7 +65,7 @@ function heart() { //create a heart at an instance
     heartX += 0.3;
     heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 110;
 
-    fill(255, 25, 10);
+    fill(255,random(180,205),random(220,230));
     noStroke();
     translate(width / 2, height / 2 - heartY + 50);
     rotate(PI / 4.0);
@@ -84,8 +84,7 @@ class Star {
   }
   
   displayStar() {
-    //stroke(random(130,255),random(240,255),255); 
-    stroke(random(100,255),random(220,255),255); 
+    stroke(random(100,255),random(220,255),255); //twinkle twinkle 
     strokeWeight(random(1,3)); 
     point(this.x,this.y);  
   }
