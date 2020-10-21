@@ -58,9 +58,9 @@ function heart() { //create a heart at an instance
     stroke(255);
     strokeWeight(5);
     line(width/2 - 40, height - 255, width/2 - 23, height - 220); //left person elbow 
-    line(width/2 - 23, height - 220, width/2 - 5, height - 265); //left person arm
+    line(width/2 - 23, height - 220, width/2 - 3, height - 265); //left person arm
     line(width/2 + 40, height - 255, width/2 + 23, height - 220); //right person elbow
-    line(width/2 + 23, height - 220, width/2 + 5, height - 265); //right person arm
+    line(width/2 + 23, height - 220, width/2 + 3, height - 265); //right person arm
     
     heartX += 0.3;
     heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 110;
@@ -136,9 +136,9 @@ class Person {
   
   move(direction) {
     
-    this.x = this.x + 0.75*direction; //speed
+    this.x = this.x + 0.65*direction; //speed
     this.y = this.y ;
-    this.state = (this.state + 1) % 3; // transition between both states to create walking animation
+    this.state = (this.state + 5) % 3; // transition between both states to create walking animation
   }
 
   stop() { //will stop the people
