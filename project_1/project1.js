@@ -1,4 +1,5 @@
 let drops = []; //array to create multiple drops
+let stars = []; //array to create multiple stars
 let person1; 
 let person2;
 let hasStopped = false;
