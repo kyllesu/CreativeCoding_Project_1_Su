@@ -11,6 +11,8 @@ function setup() {
   }
   person1 = new Person(0, height - 300);
   person2 = new Person(width, height - 300);
+  heartX = 100;
+
 }
 
 function draw() {
@@ -41,9 +43,15 @@ function draw() {
 function heart() { //create a heart at an instance
 
   if (hasStopped == true) {
-    heartX = 100;
+    fill(255);
+    stroke(255);
+    strokeWeight(5);
+    line(width/2 - 40, height - 255, width/2 - 23, height - 220); //left person elbow 
+    line(width/2 - 23, height - 220, width/2 - 5, height - 265); //left person arm
+    line(width/2 + 40, height - 255, width/2 + 23, height - 220); //right person elbow
+    line(width/2 + 23, height - 220, width/2 + 5, height - 265); //right person arm
+    
     heartX += 0.3;
-    heartY += 0.3;
     heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 110;
     fill(255, 0, 0);
     noStroke();
@@ -52,6 +60,7 @@ function heart() { //create a heart at an instance
     square(0, 0, heartY);
     circle(heartY / 2, 0, heartY);
     circle(0, heartY / 2, heartY);
+    
   }
 }
 
@@ -101,7 +110,7 @@ class Person {
   
   move(direction) {
     
-    this.x = this.x + 1*direction; //speed
+    this.x = this.x + 0.75*direction; //speed
     this.y = this.y ;
     this.state = (this.state + 1) % 3; // transition between both states to create walking animation
   }
