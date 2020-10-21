@@ -5,10 +5,15 @@ let hasStopped = false;
 let heartX, heartY;
 
 function setup() {
-  createCanvas(1000, 1000);
+  createCanvas(windowWidth, windowHeight);
+
+  for (var s = 0; s < 700; s++) { //generates 700 stars
+    stars[s] = new Star();
+  }
   for (var i = 0; i < 350; i++) { //generates up to 350 raindrops 
     drops[i] = new Drop();
   }
+
   person1 = new Person(0, height - 300);
   person2 = new Person(width, height - 300);
   heartX = 100;
@@ -18,6 +23,11 @@ function setup() {
 function draw() {
   
   background(0,25);
+
+  for (var s = 0; s < stars.length; s++) {
+    stars[s].displayStar();  
+  }
+ 
   person1.displayHead();
   person1.displayBody();
   person1.displayFrontLeg(1);
@@ -53,7 +63,8 @@ function heart() { //create a heart at an instance
     
     heartX += 0.3;
     heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 110;
-    fill(255, 0, 0);
+
+    fill(255, 25, 10);
     noStroke();
     translate(width / 2, height / 2 - heartY + 50);
     rotate(PI / 4.0);
@@ -61,6 +72,21 @@ function heart() { //create a heart at an instance
     circle(heartY / 2, 0, heartY);
     circle(0, heartY / 2, heartY);
     
+  }
+}
+
+class Star {
+  
+  constructor() {
+    this.x = random(width);
+    this.y = random(0,height - 150);
+  }
+  
+  displayStar() {
+    //stroke(random(130,255),random(240,255),255); 
+    stroke(random(100,255),random(220,255),255); 
+    strokeWeight(random(1,3)); 
+    point(this.x,this.y);  
   }
 }
 
