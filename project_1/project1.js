@@ -6,6 +6,8 @@ let hasStopped = false;
 let heartX, heartY;
 let gradient = 100;
 
+let speed = 0.65
+
 let len = 65;
 let a1, a2, a3, a4;
 let legSpeed = 0;
@@ -162,7 +164,7 @@ class Person {
 
   move(direction) {
 
-    this.x = this.x + 0.65 * direction; //speed
+    this.x = this.x + speed * direction; //speed
     this.y = this.y;
   }
 
@@ -195,9 +197,9 @@ class Person {
 
  displayLegs(facing) {
     a1 = sin(legSpeed);
-    a2 = sin(legSpeed - 0.4) - 0.3;
+    a2 = sin(legSpeed - 0.4) - 0.5;
     a3 = sin(PI + legSpeed);
-    a4 = sin(PI + legSpeed - 0.4) - 0.3;
+    a4 = sin(PI + legSpeed - 0.4) - 0.5;
 
     let leftKneeX = this.x + sin(a1) * len * facing;
     let leftKneeY = this.y + cos(a1) * len;
@@ -215,13 +217,14 @@ class Person {
       line(this.x, this.y + 130, rightKneeX, rightKneeY + 130);
       line(rightKneeX, rightKneeY + 130, rightAnkleX, rightAnkleY + 130);
 
-    } else if (this.state == 2) {
-        line(this.x, this.y + 130, this.x + 10 * facing, this.y + 170); //transition
-        line(this.x + 10 * facing, this.y + 170, this.x, this.y + 240);
-        line(this.x, this.y + 130, this.x, this.y + 240);
+    }else if (this.state == 2) {
+      line(this.x, this.y + 130, this.x + 10 * facing, this.y + 170); //transition
+      line(this.x + 10 * facing, this.y + 170, this.x, this.y + 240);
+      line(this.x, this.y + 130, this.x, this.y + 240);
     }
+
     legSpeed += 0.02;
-    
+
   }
 
 
