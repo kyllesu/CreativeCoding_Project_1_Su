@@ -1,3 +1,11 @@
+//Kyle Su
+//Project 1 The Unexpected Machine: Performance Adjective
+//October 26
+
+//Move MOUSE around the screen to slow and speed up time
+//Press either '1' '2' '3' or '4' to set start speed (based on screen size)
+
+
 let drops = []; //array to create multiple drops
 let stars = []; //array to create multiple stars
 let person1;
@@ -6,9 +14,9 @@ let hasStopped = false;
 let heartX, heartY;
 let gradient = 100;
 
-let speed = 0;
+let speed = 0; //speed of person
 
-let len = 65;
+let len = 65; //leg animation variables
 let a1, a2, a3, a4;
 let legSpeed = 0;
 
@@ -59,7 +67,7 @@ function draw() {
     drops[i].show();
   }
 
-  heart();
+  heart(); //creates heart 
   
 }
 
@@ -72,7 +80,7 @@ function keyTyped() {
   }else if (key === '3') {
     speed = 1.25;
   }else if (key === '4') {
-    speed = 8; //for testing purposes
+    speed = 1.5; 
   }
 
 }
@@ -89,11 +97,11 @@ function heart() { //create a heart at an instance
     line(width / 2 + 23, height - 220, width / 2 + 3, height - 265); //right person arm
 
     heartX += 0.3;
-    heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 110;
+    heartY = 3 * (cos(heartX) + sin(heartX / 2)) + 80;
 
     fill(255, random(180, 205), random(220, 230));
     noStroke();
-    translate(width / 2, height / 2 - heartY + 50);
+    translate(width / 2, height / 2 - heartY + 50); //move to center of screen
     rotate(PI / 4.0);
     square(0, 0, heartY);
     circle(heartY / 2, 0, heartY);
@@ -102,10 +110,10 @@ function heart() { //create a heart at an instance
   }
 }
 
-function spotlight() {
+function spotlight() { // will create moonlight spotlight 
   
   if (hasStopped == true) {
-    spotlightColor = lerpColor(color(0), color(0, 125, 255),0.6);
+    spotlightColor = lerpColor(color(0), color(0, 125, 255),0.6); 
     spotlightColor.setAlpha(8);    
     fill(spotlightColor);
     noStroke();
@@ -191,7 +199,7 @@ class Person {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.state = 1;
+    this.state = 1; //state at which legs are moving
   }
 
   move(direction) {
@@ -255,7 +263,7 @@ class Person {
       line(this.x, this.y + 130, this.x, this.y + 240);
     }
 
-    legSpeed += 0.02;
+    legSpeed += 0.03;
 
   }
 
