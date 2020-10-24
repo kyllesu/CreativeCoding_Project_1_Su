@@ -6,7 +6,7 @@ let hasStopped = false;
 let heartX, heartY;
 let gradient = 100;
 
-let speed = 0.65
+let speed = 0;
 
 let len = 65;
 let a1, a2, a3, a4;
@@ -23,8 +23,8 @@ function setup() {
     drops[i] = new Drop();
   }
 
-  person1 = new Person(0, height - 300);
-  person2 = new Person(width, height - 300);
+  person1 = new Person(-100, height - 300);
+  person2 = new Person(width + 100, height - 300);
   heartX = 100;
 
 }
@@ -36,7 +36,8 @@ function draw() {
   for (var s = 0; s < stars.length; s++) {
     stars[s].displayStar();
   }
-  
+
+  spotlight();  
   theMoon();
 
   person1.displayHead();
@@ -60,6 +61,20 @@ function draw() {
 
   heart();
   
+}
+
+//STARTING SPEEDS
+function keyTyped() {
+  if (key === '1') {
+    speed = 0.75;
+  }else if (key === '2') {
+    speed = 1;
+  }else if (key === '3') {
+    speed = 1.25;
+  }else if (key === '4') {
+    speed = 8; //for testing purposes
+  }
+
 }
 
 function heart() { //create a heart at an instance
@@ -87,20 +102,37 @@ function heart() { //create a heart at an instance
   }
 }
 
+function spotlight() {
+  
+  if (hasStopped == true) {
+    spotlightColor = lerpColor(color(0), color(0, 125, 255),0.6);
+    spotlightColor.setAlpha(8);    
+    fill(spotlightColor);
+    noStroke();
+    beginShape();
+    vertex(width/2 - 150, 100);
+    vertex(width/2 - 200, height - 40);
+    vertex(width/2 + 200, height - 40);
+    vertex(width/2 + 150,100);
+    endShape(CLOSE);
+  }
+    
+}
+
 function theMoon() {
   
   for (var moonlight = gradient; moonlight > 0; moonlight = moonlight - 1) {
-    var moonlightSize = map(moonlight, gradient, 0, 450, 100); //size of moonlight
+    var moonlightSize = map(moonlight, gradient, 0, 400, 100); //size of moonlight
     noStroke();
     fill(lerpColor(color(0,25), color(0, 125, 255), 1 - moonlight / gradient)); //black to blue inwards moonlight gradient
-    ellipse(140, 140, moonlightSize, moonlightSize); //position of moonlight
+    ellipse(width/2, 140, moonlightSize, moonlightSize); //position of moonlight
   } 
 
   for (var moon = gradient; moon > 0; moon = moon - 1) {
-    var moonSize = map(moon, gradient, 0, 280, 0); //size of moon
+    var moonSize = map(moon, gradient, 0, 240, 0); //size of moon
     noStroke();
     fill(lerpColor(color(0, 180, 255), color(255), 1 - moon * 9 / 10 / gradient * 1 / 3)); //gradient moon colors
-    ellipse(140, 140, moonSize, moonSize); //position of moon
+    ellipse(width/2, 140, moonSize, moonSize); //position of moon
   } 
 }
 
